@@ -1,6 +1,6 @@
 # Test template
 
-## Configuring
+## Installation
 npm install
 
 ## Run Automation-Test
