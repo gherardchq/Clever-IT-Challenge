@@ -1,0 +1,552 @@
+{
+	"info": {
+		"_postman_id": "ab72edcc-7193-411b-aa70-db15ab22eea2",
+		"name": "CleverIT / Falabella",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21142252"
+	},
+	"item": [
+		{
+			"name": "CleverIT / Falabella",
+			"item": [
+				{
+					"name": "Ejercicio2",
+					"item": [
+						{
+							"name": "create-resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response;\r",
+											"\r",
+											"pm.test(\"Código de Estado: 201 - Created\", function () {\r",
+											"    pm.expect(response.code).to.be.oneOf([201]);\r",
+											"    pm.expect(response.status).to.be.oneOf(['Created']);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Tiempo de Petición: Menor que 1 segundo\", function () {\r",
+											"    pm.expect(response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"    \"$ref\": \"#/definitions/CreateResourcePlacerHolder\",\r",
+											"    \"definitions\": {\r",
+											"        \"CreateResourcePlacerHolder\": {\r",
+											"            \"type\": \"object\",\r",
+											"            \"additionalProperties\": false,\r",
+											"            \"properties\": {\r",
+											"                \"title\": { \"type\": \"string\" },\r",
+											"                \"body\": { \"type\": \"string\" },\r",
+											"                \"userId\": { \"type\": \"integer\" },\r",
+											"                \"id\": { \"type\": \"integer\" }\r",
+											"            },\r",
+											"            \"required\": [\r",
+											"                \"body\", \"id\", \"title\", \"userId\"\r",
+											"            ],\r",
+											"            \"title\": \"CreateResourcePlacerHolder\"\r",
+											"        }\r",
+											"    }\r",
+											"};\r",
+											"\r",
+											"pm.variables.set(\"schema\", schema);\r",
+											"try {\r",
+											"    var schema = pm.variables.get(\"schema\");\r",
+											"    if(schema) {\r",
+											"        const jsonData = pm.response.json();\r",
+											"        if(jsonData) {\r",
+											"            var Ajv = require('ajv'),\r",
+											"            ajv = new Ajv({logger: console, allErrors: true});        \r",
+											"            pm.test('Create Resource - Validación de Esquema del Response', function() {\r",
+											"                var validate = ajv.validate(schema, jsonData);\r",
+											"                pm.expect(validate, JSON.stringify(ajv.errors)).to.be.true;\r",
+											"            });\r",
+											"        }\r",
+											"    }\r",
+											"}catch(e){\r",
+											"    console.log(e);}\r",
+											"\r",
+											"pm.test(\"Obtener respuesta sin valores nulos\", function () {\r",
+											"    pm.expect(response.json().title).to.not.eql(null);\r",
+											"    pm.expect(response.json().body).to.not.eql(null);\r",
+											"    pm.expect(response.json().userId).to.not.eql(null);\r",
+											"    pm.expect(response.json().id).to.not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valores del Título: Gherard Chipana, Falabella, CleverIT, Prueba Title \", function () {    \r",
+											"    pm.expect(response.json().title).to.be.oneOf(['Gherard Chipana', 'Falabella', 'CleverIT', 'Prueba Title']);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"UserId debe ser máximo hasta el número 100\", function () {\r",
+											"    pm.expect(response.json().userId).to.be.below(100);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Valores Random desde un Arreglo\r",
+											"function randomArray(data) {\r",
+											"    return data[Math.floor(Math.random() * data.length)]\r",
+											"}\r",
+											"const title = ['Gherard Chipana', 'Falabella', 'CleverIT', 'Prueba Title'];\r",
+											"pm.globals.set(\"title\",randomArray(title));\r",
+											"\r",
+											"// Valores Random Tipo Cadena (Letras Minúsculas)\r",
+											"function lowerCase(length) {\r",
+											"    const result = []; \r",
+											"    const characters = 'abcdefghijklmnopqrstuvwxyz'; \r",
+											"    const charactersLength = characters.length;\r",
+											"    for (var i = 0; i < length; i++ ) {\r",
+											"       result.push(characters.charAt(Math.floor(Math.random() * charactersLength)));\r",
+											"    }\r",
+											"    return result.join(''); \r",
+											"   } \r",
+											"pm.globals.set(\"body\",lowerCase(3));\r",
+											"\r",
+											"// Valores Random Tipo Entero\r",
+											"const userId = Math.floor((Math.random()*100)+1);\r",
+											"pm.globals.set(\"userId\", userId);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title}}\",\r\n    \"body\": \"{{body}}\",\r\n    \"userId\": {{userId}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response;\r",
+											"\r",
+											"pm.test(\"Código de Estado: 200 - Ok\", function () {\r",
+											"    pm.expect(response.code).to.be.oneOf([200]);\r",
+											"    pm.expect(response.status).to.be.oneOf(['OK']);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Tiempo de Petición: Menor que 1 segundo  \", function () {\r",
+											"    pm.expect(response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"    \"type\": \"array\",\r",
+											"    \"items\": {\r",
+											"        \"$ref\": \"#/definitions/GetResourcePlacerHolderElement\"\r",
+											"    },\r",
+											"    \"definitions\": {\r",
+											"        \"GetResourcePlacerHolderElement\": {\r",
+											"            \"type\": \"object\",\r",
+											"            \"additionalProperties\": false,\r",
+											"            \"properties\": {\r",
+											"                \"userId\": { \"type\": \"integer\" },\r",
+											"                \"id\": { \"type\": \"integer\" },\r",
+											"                \"title\": { \"type\": \"string\" },\r",
+											"                \"body\": { \"type\": \"string\" }\r",
+											"            },\r",
+											"            \"required\": [\r",
+											"                \"body\", \"id\", \"title\", \"userId\"\r",
+											"            ],\r",
+											"            \"title\": \"GetResourcePlacerHolderElement\"\r",
+											"        }\r",
+											"    }\r",
+											"};\r",
+											"\r",
+											"pm.variables.set(\"schema\", schema);\r",
+											"try {\r",
+											"    var schema = pm.variables.get(\"schema\");\r",
+											"    if(schema) {\r",
+											"        const jsonData = pm.response.json();\r",
+											"        if(jsonData) {\r",
+											"            var Ajv = require('ajv'),\r",
+											"            ajv = new Ajv({logger: console, allErrors: true});        \r",
+											"            pm.test('Get Resource - Validación de Esquema del Response', function() {\r",
+											"                var validate = ajv.validate(schema, jsonData);\r",
+											"                pm.expect(validate, JSON.stringify(ajv.errors)).to.be.true;\r",
+											"            });\r",
+											"        }\r",
+											"    }\r",
+											"}catch(e){\r",
+											"    console.log(e);\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Obtener respuesta sin valores nulos\", function () {\r",
+											"    pm.expect(response.json().title).to.not.eql(null);\r",
+											"    pm.expect(response.json().body).to.not.eql(null);\r",
+											"    pm.expect(response.json().userId).to.not.eql(null);\r",
+											"    pm.expect(response.json().id).to.not.eql(null);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response;\r",
+											"\r",
+											"pm.test(\"Código de Estado: 200 - OK\", function () {\r",
+											"    pm.expect(response.code).to.be.oneOf([200]);\r",
+											"    pm.expect(response.status).to.be.oneOf(['OK']);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Tiempo de Petición: Menor que 1 segundo  \", function () {\r",
+											"    pm.expect(response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"    \"$ref\": \"#/definitions/CreateResourcePlacerHolder\",\r",
+											"    \"definitions\": {\r",
+											"        \"CreateResourcePlacerHolder\": {\r",
+											"            \"type\": \"object\",\r",
+											"            \"additionalProperties\": false,\r",
+											"            \"properties\": {\r",
+											"                \"title\": { \"type\": \"string\" },\r",
+											"                \"body\": { \"type\": \"string\" },\r",
+											"                \"userId\": { \"type\": \"integer\" },\r",
+											"                \"id\": { \"type\": \"integer\" }\r",
+											"            },\r",
+											"            \"required\": [\r",
+											"                \"body\", \"id\", \"title\", \"userId\"\r",
+											"            ],\r",
+											"            \"title\": \"CreateResourcePlacerHolder\"\r",
+											"        }\r",
+											"    }\r",
+											"};\r",
+											"\r",
+											"pm.variables.set(\"schema\", schema);\r",
+											"try {\r",
+											"    var schema = pm.variables.get(\"schema\");\r",
+											"    if(schema) {\r",
+											"        const jsonData = pm.response.json();\r",
+											"        if(jsonData) {\r",
+											"            var Ajv = require('ajv'),\r",
+											"            ajv = new Ajv({logger: console, allErrors: true});        \r",
+											"            pm.test('Update Resource - Validación de Esquema del Response', function() {\r",
+											"                var validate = ajv.validate(schema, jsonData);\r",
+											"                pm.expect(validate, JSON.stringify(ajv.errors)).to.be.true;\r",
+											"            });\r",
+											"        }\r",
+											"    }\r",
+											"}catch(e){\r",
+											"    console.log(e);\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Obtener respuesta sin valores nulos\", function () {\r",
+											"    pm.expect(response.json().title).to.not.eql(null);\r",
+											"    pm.expect(response.json().body).to.not.eql(null);\r",
+											"    pm.expect(response.json().userId).to.not.eql(null);\r",
+											"    pm.expect(response.json().id).to.not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valores del Título: Gherard Chipana, Falabella, CleverIT, Prueba Title \", function () {    \r",
+											"    pm.expect(response.json().title).to.be.oneOf(['Gherard Chipana', 'Falabella', 'CleverIT', 'Prueba Title']);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Valores Random desde un Arreglo\r",
+											"function randomArray(data) {\r",
+											"    return data[Math.floor(Math.random() * data.length)]\r",
+											"}\r",
+											"const title = ['Gherard Chipana', 'Falabella', 'CleverIT', 'Prueba Title'];\r",
+											"pm.globals.set(\"title\",randomArray(title));\r",
+											"\r",
+											"// Valores Random Tipo Cadena (Letras Minúsculas)\r",
+											"function lowerCase(length) {\r",
+											"    const result = []; \r",
+											"    const characters = 'abcdefghijklmnopqrstuvwxyz'; \r",
+											"    const charactersLength = characters.length;\r",
+											"    for (var i = 0; i < length; i++ ) {\r",
+											"       result.push(characters.charAt(Math.floor(Math.random() * charactersLength)));\r",
+											"    }\r",
+											"    return result.join(''); \r",
+											"   } \r",
+											"pm.globals.set(\"body\",lowerCase(3));\r",
+											"\r",
+											"// Valores Random Tipo Entero de 0 - 1000\r",
+											"const userId = Math.floor((Math.random()*1000)+1);\r",
+											"pm.globals.set(\"userId\", userId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title}}\",\r\n    \"body\": \"{{body}}\",\r\n    \"userId\": {{userId}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts/1",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "patch-resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response;\r",
+											"\r",
+											"pm.test(\"Código de Estado: 200 - OK\", function () {\r",
+											"    pm.expect(response.code).to.be.oneOf([200]);\r",
+											"    pm.expect(response.status).to.be.oneOf(['OK']);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Tiempo de Petición: Menor que 1 segundo  \", function () {\r",
+											"    pm.expect(response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"    \"$ref\": \"#/definitions/CreateResourcePlacerHolder\",\r",
+											"    \"definitions\": {\r",
+											"        \"CreateResourcePlacerHolder\": {\r",
+											"            \"type\": \"object\",\r",
+											"            \"additionalProperties\": false,\r",
+											"            \"properties\": {\r",
+											"                \"title\": { \"type\": \"string\" },\r",
+											"                \"body\": { \"type\": \"string\" },\r",
+											"                \"userId\": { \"type\": \"integer\" },\r",
+											"                \"id\": { \"type\": \"integer\" }\r",
+											"            },\r",
+											"            \"required\": [\r",
+											"                \"body\", \"id\", \"title\", \"userId\"\r",
+											"            ],\r",
+											"            \"title\": \"CreateResourcePlacerHolder\"\r",
+											"        }\r",
+											"    }\r",
+											"};\r",
+											"\r",
+											"pm.variables.set(\"schema\", schema);\r",
+											"try {\r",
+											"    var schema = pm.variables.get(\"schema\");\r",
+											"    if(schema) {\r",
+											"        const jsonData = pm.response.json();\r",
+											"        if(jsonData) {\r",
+											"            var Ajv = require('ajv'),\r",
+											"            ajv = new Ajv({logger: console, allErrors: true});        \r",
+											"            pm.test('Patch Resource - Validación de Esquema del Response', function() {\r",
+											"                var validate = ajv.validate(schema, jsonData);\r",
+											"                pm.expect(validate, JSON.stringify(ajv.errors)).to.be.true;\r",
+											"            });\r",
+											"        }\r",
+											"    }\r",
+											"}catch(e){\r",
+											"    console.log(e);\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Obtener respuesta sin valores nulos\", function () {\r",
+											"    pm.expect(response.json().title).to.not.eql(null);\r",
+											"    pm.expect(response.json().body).to.not.eql(null);\r",
+											"    pm.expect(response.json().userId).to.not.eql(null);\r",
+											"    pm.expect(response.json().id).to.not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valores del Título: Gherard Chipana, Falabella, CleverIT, Prueba Title \", function () {    \r",
+											"    pm.expect(response.json().title).to.be.oneOf(['Gherard Chipana', 'Falabella', 'CleverIT', 'Prueba Title']);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Valores Random desde un Arreglo\r",
+											"function randomArray(data) {\r",
+											"    return data[Math.floor(Math.random() * data.length)]\r",
+											"}\r",
+											"const title = ['Gherard Chipana', 'Falabella', 'CleverIT', 'Prueba Title'];\r",
+											"pm.globals.set(\"title\",randomArray(title));\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts/1",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response;\r",
+											"\r",
+											"pm.test(\"Código de Estado: 200 - OK\", function () {\r",
+											"    pm.expect(response.code).to.be.oneOf([200]);\r",
+											"    pm.expect(response.status).to.be.oneOf(['OK']);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Tiempo de Petición: Menor que 1 segundo  \", function () {\r",
+											"    pm.expect(response.responseTime).to.be.below(1000);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts/1",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
