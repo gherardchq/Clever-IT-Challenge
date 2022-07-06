@@ -89,7 +89,7 @@
 											"script": {
 												"exec": [
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")\r",
 													"pm.globals.set(\"comments\",\"comments\")\r",
 													"pm.globals.set(\"albums\",\"albums\")\r",
@@ -105,9 +105,9 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/{{posts}}",
+											"raw": "{{base_url}}/{{posts}}",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{posts}}"
@@ -218,7 +218,7 @@
 													"pm.globals.set(\"userId\", userId);\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")"
 												],
 												"type": "text/javascript"
@@ -238,9 +238,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/{{posts}}",
+											"raw": "{{base_url}}/{{posts}}",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{posts}}"
@@ -347,7 +347,7 @@
 													"pm.globals.set(\"userId\", userId);\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")"
 												],
 												"type": "text/javascript"
@@ -367,9 +367,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/{{posts}}/1",
+											"raw": "{{base_url}}/{{posts}}/1",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{posts}}",
@@ -461,7 +461,7 @@
 													"pm.globals.set(\"title\",randomArray(title));\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")"
 												],
 												"type": "text/javascript"
@@ -481,9 +481,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/{{posts}}/1",
+											"raw": "{{base_url}}/{{posts}}/1",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{posts}}",
@@ -519,7 +519,7 @@
 											"script": {
 												"exec": [
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")\r",
 													""
 												],
@@ -540,9 +540,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/{{posts}}/1",
+											"raw": "{{base_url}}/{{posts}}/1",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{posts}}",
@@ -746,7 +746,7 @@
 													"pm.globals.set(\"id\", id);\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")\r",
 													"pm.globals.set(\"albums\",\"albums\")\r",
 													"pm.globals.set(\"todos\",\"todos\")\r",
@@ -760,9 +760,9 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/{{users}}/{{id}}",
+											"raw": "{{base_url}}/{{users}}/{{id}}",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{users}}",
@@ -856,7 +856,7 @@
 													"pm.globals.set(\"id\", id);\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")\r",
 													"pm.globals.set(\"comments\",\"comments\")\r",
 													"pm.globals.set(\"albums\",\"albums\")\r",
@@ -872,9 +872,9 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/{{users}}/{{id}}/{{albums}}",
+											"raw": "{{base_url}}/{{users}}/{{id}}/{{albums}}",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{users}}",
@@ -974,7 +974,7 @@
 													"pm.globals.set(\"id\", id);\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")\r",
 													"pm.globals.set(\"comments\",\"comments\")\r",
 													"pm.globals.set(\"albums\",\"albums\")\r",
@@ -990,9 +990,9 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/{{users}}/{{id}}/{{todos}}",
+											"raw": "{{base_url}}/{{users}}/{{id}}/{{todos}}",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{users}}",
@@ -1092,7 +1092,7 @@
 													"pm.globals.set(\"id\", id);\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"posts\",\"posts\")\r",
 													"pm.globals.set(\"comments\",\"comments\")\r",
 													"pm.globals.set(\"albums\",\"albums\")\r",
@@ -1108,9 +1108,9 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/{{users}}/{{id}}/{{posts}}",
+											"raw": "{{base_url}}/{{users}}/{{id}}/{{posts}}",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{users}}",
@@ -1220,7 +1220,7 @@
 													"pm.globals.set(\"postId\", postId);\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\");\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\");\r",
 													"pm.globals.set(\"comments\",\"comments\");"
 												],
 												"type": "text/javascript"
@@ -1238,9 +1238,9 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{url}}/{{comments}}?postId={{postId}}",
+											"raw": "{{base_url}}/{{comments}}?postId={{postId}}",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{comments}}"
@@ -1362,7 +1362,7 @@
 													"pm.globals.set(\"albumId\", albumId);\r",
 													"\r",
 													"// Variable de Entorno para URL\r",
-													"pm.globals.set(\"url\",\"https://jsonplaceholder.typicode.com\")\r",
+													"pm.globals.set(\"base_url\",\"https://jsonplaceholder.typicode.com\")\r",
 													"pm.globals.set(\"albums\",\"albums\")\r",
 													"pm.globals.set(\"photos\",\"photos\")"
 												],
@@ -1374,9 +1374,9 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/{{albums}}/{{albumId}}/{{photos}}",
+											"raw": "{{base_url}}/{{albums}}/{{albumId}}/{{photos}}",
 											"host": [
-												"{{url}}"
+												"{{base_url}}"
 											],
 											"path": [
 												"{{albums}}",
